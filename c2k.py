@@ -44,6 +44,10 @@ class Calculator:
     height = 480
     lights = {name: (0, 0) for name in lights}
     light_size = 0
+    light_size_factor = {
+        'big': None,
+        'small': None
+    }
     positions = {index: [] for index in range(5)}
     last_tick_values = {index: None for index in range(5)}
 
@@ -72,10 +76,17 @@ class Calculator:
     def get_light_scale(self, name):
 
         default_size = 192
+
         if 'big' in name:
-            return self.lights[name] / default_size
+            if self.light_size_factor.get('big') is None:
+                self.light_size_factor['big'] = self.lights[name] / default_size
+
+            return self.light_size_factor.get('big')
         else:
-            return self.lights[name] / default_size / 2
+            if self.light_size_factor.get('small') is None:
+                self.light_size_factor['small'] = self.lights[name] / default_size / 2
+
+            return self.light_size_factor.get('small')
 
     def calculate(self):
 
@@ -109,17 +120,17 @@ class Calculator:
 
                 self.positions[row_num].append((x, y))
 
-    def correct_image_position(self, position):
+    def correct_image_position(self, position, type):
         return (
-            position[0] - int(self.light_size / 2),
-            position[1] - int(self.light_size / 2)
+            position[0] - int(self.light_size * self.light_size_factor.get(type) // 2),
+            position[1] - int(self.light_size * self.light_size_factor.get(type) // 2)
         )
 
     def get_big_grey_positions(self):
-        return [self.correct_image_position(pos) for pos in self.positions[0] + self.positions[1]]
+        return [self.correct_image_position(pos, 'big') for pos in self.positions[0] + self.positions[1]]
 
     def get_small_grey_positions(self):
-        return [self.correct_image_position(pos) for pos in self.positions[2] + self.positions[3] + self.positions[4]]
+        return [self.correct_image_position(pos, 'small') for pos in self.positions[2] + self.positions[3] + self.positions[4]]
 
     def get_changes(self):
 
@@ -141,7 +152,7 @@ class Calculator:
 
                 changes[index]['changed'] = True
                 changes[index]['positions'] = [
-                    self.correct_image_position(pos) for pos in self.positions[index][0:value]
+                    self.correct_image_position(pos, 'big' if index < 2 else 'small') for pos in self.positions[index][0:value]
                 ]
 
         return changes
