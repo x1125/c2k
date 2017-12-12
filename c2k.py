@@ -113,9 +113,9 @@ class Calculator:
 
                 # special condition for 5-minute lights
                 if row_num == 2:
-                    if col_num in [1, 5, 9]:
+                    if col_num in [3, 7, 11]:
                         y -= 50  # FIXME
-                    elif col_num in [3, 7, 11]:
+                    elif col_num in [1, 5, 9]:
                         y += 50  # FIXME
 
                 self.positions[row_num].append((x, y))
@@ -137,7 +137,7 @@ class Calculator:
         now = datetime.datetime.now()
         tick_values = {
             0: now.hour // 5,
-            1: now.hour % 4,
+            1: now.hour % 5,
             2: now.minute // 5,
             3: now.minute % 5,
             4: now.second % 2
