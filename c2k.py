@@ -175,7 +175,6 @@ def run():
     window = sdl2.ext.Window(
         'c2k',
         size=calculator.get_screen_size(),
-        position=(0, 1),  # weird bug on i3?
         flags=sdl2.SDL_WINDOW_BORDERLESS
     )
     window.show()
