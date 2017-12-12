@@ -33,9 +33,10 @@ def get_scaled_surface(surface, factor=1):
 
 
 class Light(sdl2.ext.Entity):
-    def __init__(self, world, sprite, posx=0, posy=0):
+    def __init__(self, world, sprite, posx=0, posy=0, depth=-1):
         self.sprite = sprite
         self.sprite.position = posx, posy
+        self.sprite.depth = depth
 
 
 class Calculator:
@@ -204,11 +205,11 @@ def run():
 
     # draw big grey lights
     for pos in calculator.get_big_grey_positions():
-        Light(world, factory.from_surface(light_sprites.get('big_grey')), pos[0], pos[1])
+        Light(world, factory.from_surface(light_sprites.get('big_grey')), pos[0], pos[1], -2)
 
     # draw small grey lights
     for pos in calculator.get_small_grey_positions():
-        Light(world, factory.from_surface(light_sprites.get('small_grey')), pos[0], pos[1])
+        Light(world, factory.from_surface(light_sprites.get('small_grey')), pos[0], pos[1], -2)
 
     _lights = {index: set() for index in range(5)}
 
