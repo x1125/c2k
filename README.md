@@ -4,7 +4,7 @@ c2k (clock 2000)
 This is an emulated version of a clock I've once built in school.
 It's using Python and SDL2.
 
-![Screenshot](screenshot/clean.jpg)
+![Screenshot](screenshot/clean.png)
 
 # How to install
 
