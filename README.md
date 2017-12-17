@@ -6,6 +6,14 @@ It's using Python and SDL2.
 
 ![Screenshot](screenshot/clean.png)
 
+# Original
+
+![Screenshot](screenshot/original.jpg)
+
+# New
+
+![Screenshot](screenshot/new.jpg)
+
 # How to install
 
 * Create and active a venv: `python3 -m venv c2k-env && source c2k-env/bin/active`
